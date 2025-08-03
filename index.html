@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Friendship Day Wishes</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      padding: 50px 20px;
+    }
+
+    #container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+
+    input[type="text"], textarea {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 80%;
+      margin-bottom: 20px;
+    }
+
+    .btn, .yes-no-btn {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 30px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .btn:hover {
+      background-color: #5548d8;
+    }
+
+    .yes-no-btn.no {
+      background-color: #dc3545;
+    }
+
+    #question, #result, #anil {
+      font-size: 1.4em;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="container">
+    <!-- Page 1: Ask name -->
+    <div id="namePage">
+      <h2>👋 What's Your Name Dear?</h2>
+      <input type="text" id="userName" placeholder="Enter your name" />
+      <br>
+      <button class="btn" onclick="goToQuestion()">Next</button>
+    </div>
+
+    <!-- Page 2: Ask about Friendship Day -->
+    <div id="questionPage" style="display: none;">
+      <div id="question"></div>
+      <button class="yes-no-btn" onclick="sayHappy()">Yes</button>
+      <button class="yes-no-btn no" onclick="sayNo()">No</button>
+    </div>
+
+    <!-- Page 3: Happy Friendship Dear -->
+    <div id="result" style="display: none;"></div>
+
+    <!-- Page 4: Final Message - What about Anil -->
+    <div id="anil" style="display: none;">
+      <p>💬 What about Anil?</p>
+      <textarea id="anilText" rows="4" placeholder="Write your thoughts here..." style="width: 80%; padding: 10px; border-radius: 8px;"></textarea><br>
+      <button class="btn" onclick="sendToWhatsApp()">📤 Send on WhatsApp</button>
+    </div>
+  </div>
+
+  <script>
+    let name = "";
+
+    function goToQuestion() {
+      name = document.getElementById("userName").value.trim();
+      if (name === "") {
+        alert("Please enter your name!");
+        return;
+      }
+
+      document.getElementById("namePage").style.display = "none";
+      document.getElementById("questionPage").style.display = "block";
+      document.getElementById("question").innerHTML = `Hey ${name}, today is Friendship Day, right?`;
+    }
+
+    function sayHappy() {
+      document.getElementById("questionPage").style.display = "none";
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML = `🎉 Happy Friendship Day Dear, <strong>${name}</strong>! 🎉<br><br>Thank you for being such a beautiful friend!`;
+
+      setTimeout(() => {
+        document.getElementById("result").style.display = "none";
+        document.getElementById("anil").style.display = "block";
+      }, 3000);
+    }
+
+    function sayNo() {
+      document.getElementById("questionPage").style.display = "none";
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML = `😊 No worries, ${name}. Still sending you friendship wishes!`;
+
+      setTimeout(() => {
+        document.getElementById("result").style.display = "none";
+        document.getElementById("anil").style.display = "block";
+      }, 3000);
+    }
+
+    function sendToWhatsApp() {
+      const thought = document.getElementById('anilText').value.trim();
+      if (thought === '') {
+        alert("Please write your thoughts!");
+        return;
+      }
+
+      const message = `💬 Friendship Day Response\n👤 Name: ${name}\n📝 Thought about Anil: ${thought}`;
+      const encodedMessage = encodeURIComponent(message);
+      const phoneNumber = "916364361419"; // Replace with your WhatsApp number
+
+      const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+      window.open(whatsappLink, "_blank");
+    }
+  </script>
+
+</body>
+</html>
